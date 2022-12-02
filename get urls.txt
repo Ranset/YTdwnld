@@ -1,4 +1,13 @@
-Stream objects have a 'url' data memeber. So yt.streams.get_by_itag(137).url will fetch you the stream's url.
+# Progress bar
+from pytube.cli import on_progress
+from pytube import YouTube
+
+yt = YouTube(video_url, on_progress_callback=on_progress)
+yt.download()
+
+
+
+# Stream objects have a 'url' data memeber. So yt.streams.get_by_itag(137).url will fetch you the stream's url.
 
 
 
