@@ -9,18 +9,29 @@ class DownTube:
 
         #print(links[0].url)
 
-        links = yt.streams.filter(progressive=True)
+        links = yt.streams.filter(progressive=True, res='720p')
 
         for link in links:
             print(link.url)
 
     def get_list_titles(self):
-        p = Playlist('https://www.youtube.com/playlist?list=PLyDw0WMdjWpq6qml1jT3Il5zlHLi7z_Kp')
-        print(f'Fetching video: {p.title}')
+        p = Playlist('https://www.youtube.com/watch?v=5FsBXcrQ1XI&list=PLyDw0WMdjWprMilid88cuq85JX_oIW9lK')
+        print(f'Fetching lista: {p.title}')
+        total = p.length
+        nro = 0
+        downUrl = ''
 
         for video in p.videos:
-            print(video.title)
+            links = video.streams.filter(progressive=True, res='720p')
+
+            for link in links:
+                nro += 1
+                print(f'fetching {nro} de {total}')
+                downUrl += link.url
+
+        print(downUrl)
 
 if __name__ == "__main__":
     tube = DownTube()
-    tube.get_video_url()
+    #tube.get_video_url()
+    tube.get_list_titles()
