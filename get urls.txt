@@ -5,11 +5,32 @@ from pytube import YouTube
 yt = YouTube(video_url, on_progress_callback=on_progress)
 yt.download()
 
+## Otra forma
+
+Call your progress function inside the Youtube class
+
+yt = YouTube(video_link, on_progress_callback=progress_function)
+
+This is your progress function
+
+def progress_function(self,stream, chunk,file_handle, bytes_remaining):
+
+    size = stream.filesize
+    p = 0
+    while p <= 100:
+        progress = p
+        print str(p)+'%'
+        p = percent(bytes_remaining, size)
+
+This computes the percentage converting the file size and the bytes remaining
+
+def percent(self, tem, total):
+        perc = (float(tem) / float(total)) * float(100)
+        return perc
+
 
 
 # Stream objects have a 'url' data memeber. So yt.streams.get_by_itag(137).url will fetch you the stream's url.
-
-
 
 
 In [2]: yt = YouTube('https://www.youtube.com/watch?v=9bZkp7q19f0')
