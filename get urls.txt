@@ -1,0 +1,9 @@
+Stream objects have a 'url' data memeber. So yt.streams.get_by_itag(137).url will fetch you the stream's url.
+
+
+
+
+In [2]: yt = YouTube('https://www.youtube.com/watch?v=9bZkp7q19f0')
+
+In [3]: yt.streams.all()[0].url
+Out[3]: 'https://r3---sn-ci5gup-cive.googlevideo.com/videoplayback?mime=video/mp4&expire=1533222407&ipbits=0&mt=1533200694&ratebypass=yes&itag=22&lmt=1532732619706971&requiressl=yes&ei=p8liW_qBIou-ogPc26vAAg&c=WEB&dur=252.261&id=o-ACKegEKLibobwMkgd86MZm6wgL41IeR9DNg4PMI6VwuU&pl=24&ms=au,rdu&fvip=3&sparams=dur,ei,id,initcwndbps,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,ratebypass,requiressl,source,expire&source=youtube&initcwndbps=1653750&mv=m&mm=31,29&ip=125.21.19.133&mn=sn-ci5gup-cive,sn-h557sns7&key=yt6&signature=47DDA68AD4DC7AA9286A158EC26ECC1F83298F3F.350AF396479AFC160BC851730E2D14CB223E09FA'
