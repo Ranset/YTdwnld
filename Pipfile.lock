@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "43cea5d3698ba3b90c6e38d63a10d33eef8073a6ce779a2587f933262b6770fe"
+            "sha256": "73758be2e777472a3bfaaae76a05670a4504b37f9eba7c3244507497c4f3285b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "pysmartdl": {
+            "hashes": [
+                "sha256:35275d1694f3474d33bdca93b27d3608265ffd42f5aeb28e56f38b906c0c35f4",
+                "sha256:671c277ca710fb9b6603b19176f5c091041ec4ef6dcdb507c9a983a89ca35d31"
+            ],
+            "index": "pypi",
+            "version": "==1.3.4"
+        },
         "pytube": {
             "hashes": [
                 "sha256:6de1f3a4cb125dd6ff912598c7e88a866325a63cc91755cae616f53c40ae5503",

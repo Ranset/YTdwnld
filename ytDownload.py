@@ -1,54 +1,63 @@
 from pytube import YouTube, Playlist
+from pytube.cli import on_progress
+from pySmartDL import SmartDL
+import os
 
 class DownTube:
 
-    def get_video_url(self):
-        yt = YouTube('http://youtube.com/watch?v=2lAe1cqCOXo')
+    def _rename(self, old:str, dest:str, filename:str, extention:str):
+        new = dest + filename + '.' + extention
+        os.rename(old, new)
+        print(new)
+
+    def get_video_url(self, url:str):
+        yt = YouTube(url)
         print(f'Fetching video: {yt.title}')
+
+        #Alternativa:
         #links = yt.streams.filter(progressive=True, res='720p')
 
-        #print(links[0].url)
+        stream = yt.streams.get_lowest_resolution()
+        sizeMb = stream.filesize / 1000000
 
-        links = yt.streams.filter(progressive=True, res='720p')
+        print(f'Descargando {round(sizeMb,2)} MB')
 
-        for link in links:
-            print(link.url)
+        dest = "C:\\Downloads\\"
 
-    def get_list_titles(self):
-        p = Playlist('https://www.youtube.com/watch?v=5FsBXcrQ1XI&list=PLyDw0WMdjWprMilid88cuq85JX_oIW9lK')
+        obj = SmartDL(stream.url, dest)
+        obj.start()
+
+        path = obj.get_dest()
+
+        self._rename(path, dest, yt.title, stream.subtype)
+
+
+    def get_list(self, url:str):
+        p = Playlist(url)
         print(f'Fetching lista: {p.title}')
         total = p.length
         nro = 0
         downUrl = ''
 
-        for video in p.videos:
-            links = video.streams.filter(progressive=True, res='720p')
-
-            for link in links:
-                nro += 1
-                print(f'fetching {nro} de {total} - {link.title} dur {link.vid_info}')
-                downUrl += link.url + ' '
-
-        print(downUrl)
-
-    def get_list(self):
-        p = Playlist('https://www.youtube.com/watch?v=5FsBXcrQ1XI&list=PLyDw0WMdjWprMilid88cuq85JX_oIW9lK')
-        print(f'Fetching lista: {p.title}')
-        total = p.length
-        nro = 0
-        downUrl = ''
-
-        for url in p.video_urls:
-            yt = YouTube(url)
-            print(f'fetching {nro} de {total} - {yt.title} dur: {yt.length}')
+        for vidUrl in p.video_urls:
+            yt = YouTube(vidUrl)
+            nro += 1
+            print(f'Video {nro} de {total} - {yt.title} dur: {yt.length}')
             links = yt.streams.filter(progressive=True, res='720p')
 
             for link in links:
                 downUrl += link.url + ' '
 
-        print(downUrl)
+        print('Escribiendo fichero')
+
+        f = open('./urls.txt', 'w')
+        f.write(downUrl)
+        f.close()
+
+        print('Completado!')
 
 if __name__ == "__main__":
     tube = DownTube()
-    #tube.get_video_url()
-    tube.get_list()
+    #tube.get_list('https://www.youtube.com/watch?v=5FsBXcrQ1XI&list=PLyDw0WMdjWprMilid88cuq85JX_oIW9lK')
+    tube.get_video_url('https://www.youtube.com/watch?v=V1WW1n0tEVM')
+    #tube._rename('C:\Downloads\oldest',"C:\\Downloads\\",'new.txt')
