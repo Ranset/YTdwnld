@@ -10,9 +10,9 @@ class DownTube:
         os.rename(old, new)
         print(new)
 
-    def get_video_url(self, url:str):
+    def download_video(self, url:str):
         yt = YouTube(url)
-        print(f'Fetching video: {yt.title}')
+        print(f'Descargando video: {yt.title}')
 
         #Alternativa:
         #links = yt.streams.filter(progressive=True, res='720p')
@@ -20,7 +20,7 @@ class DownTube:
         stream = yt.streams.get_lowest_resolution()
         sizeMb = stream.filesize / 1000000
 
-        print(f'Descargando {round(sizeMb,2)} MB')
+        print(f'Tamaño: {round(sizeMb,2)} MB {stream.resolution}')
 
         dest = "C:\\Downloads\\"
 
@@ -30,6 +30,17 @@ class DownTube:
         path = obj.get_dest()
 
         self._rename(path, dest, yt.title, stream.subtype)
+
+
+    def download_list(self, url:str):
+        p = Playlist(url)
+        total = p.length
+        print(f'Abriendo lista: {p.title} con {total} videos')
+
+        for vidUrl in p.video_urls:
+            self.download_video(vidUrl)
+
+        print(f'Descarga de lista {p.title} completada')
 
 
     def get_list(self, url:str):
@@ -43,10 +54,9 @@ class DownTube:
             yt = YouTube(vidUrl)
             nro += 1
             print(f'Video {nro} de {total} - {yt.title} dur: {yt.length}')
-            links = yt.streams.filter(progressive=True, res='720p')
+            link = yt.streams.get_highest_resolution()
 
-            for link in links:
-                downUrl += link.url + ' '
+            downUrl += link.url + ' '
 
         print('Escribiendo fichero')
 
@@ -58,6 +68,7 @@ class DownTube:
 
 if __name__ == "__main__":
     tube = DownTube()
-    #tube.get_list('https://www.youtube.com/watch?v=5FsBXcrQ1XI&list=PLyDw0WMdjWprMilid88cuq85JX_oIW9lK')
-    tube.get_video_url('https://www.youtube.com/watch?v=V1WW1n0tEVM')
+    tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60')
+    #tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM')
     #tube._rename('C:\Downloads\oldest',"C:\\Downloads\\",'new.txt')
+    #tube.download_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60')
