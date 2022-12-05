@@ -30,7 +30,7 @@ class DownTube:
                 #Alternativa:
                 #links = yt.streams.filter(progressive=True, res='720p')
 
-                stream = yt.streams.get_lowest_resolution()
+                stream = yt.streams.get_highest_resolution()
                 sizeMb = stream.filesize / 1000000
 
                 print(f'Tamaño: {round(sizeMb,2)} MB {stream.resolution}')
