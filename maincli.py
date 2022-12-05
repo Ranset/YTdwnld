@@ -1,14 +1,18 @@
 from ytDownload import DownTube, os
 
 proxy =''
+dest = ''
 
 try:
     f = open('config.txt')
 except:
     print('No existe el archivo config.txt')
 else:
+    dest = f.readline()
+    dest = f.readline()
     proxy = f.readline()
     proxy = f.readline()
+    f.close()
 
 if proxy != '':
     os.environ['http_proxy'] = proxy 
@@ -16,6 +20,7 @@ if proxy != '':
     os.environ['https_proxy'] = proxy
     os.environ['HTTPS_PROXY'] = proxy
     print(f'Proxy fijado en: {proxy}')
+    print('')
 
 print('Bienvenido a YouDL v1.1')
 print('Administrador de descarga de Youtube')
@@ -34,10 +39,11 @@ while True:
 
     if select1 == '1':
         url = input('Coloque la url del video: ')
-        dyt.download_video(url)
+        dyt.download_video(url, dest)
     elif select1 == '2':
         url = input('Coloque la url del la lista: ')
-        dyt.download_list(url)
+        dyt.download_list(url, dest)
+    
     elif select1 == '3':
         url = input('Coloque la url del la lista: ')
         dyt.get_list(url)

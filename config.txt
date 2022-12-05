@@ -1,1 +1,3 @@
-#Poner debajo de esta linea en formato 'http://<user>:<pass>@<proxy>:<port>'
+# Carpeta de descarga
+C:\Downloads\
+# Poner debajo de esta linea en formato 'http://<user>:<pass>@<proxy>:<port>'
