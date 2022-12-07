@@ -2,6 +2,8 @@ from pytube import YouTube, Playlist
 from pySmartDL import SmartDL
 from random import random
 import os
+import re
+from urllib.parse import quote_plus
 
 class DownTube:
 
@@ -14,6 +16,11 @@ class DownTube:
             os.rename(old, new)
 
         print(new)
+
+    def _clearString (self, string:str):
+        regex = re.compile('[^0-9a-zA-Z&¡!{()}#$@,.óáéíñúü]+')
+        s = regex.sub(' ', string)
+        return s
 
     def download_video(self, url:str, destination:str):
         try:
@@ -42,7 +49,7 @@ class DownTube:
 
                 path = obj.get_dest()
 
-                self._rename(path, dest, yt.title, stream.subtype)
+                self._rename(path, dest, self._clearString(yt.title), stream.subtype)
 
 
     def download_list(self, url:str, destination:str):
@@ -53,8 +60,12 @@ class DownTube:
             print('Ah ocurrido un error. Revise la url de la lista')
         else:
             print(f'Abriendo lista: {p.title} con {total} videos')
+            nro = 0
 
             for vidUrl in p.video_urls:
+                nro += 1
+                print('')
+                print(f'Video {nro} de {total}')
                 self.download_video(vidUrl, destination)
 
             print(f'Descarga de lista {p.title} completada')
@@ -77,7 +88,7 @@ class DownTube:
                 print(f'Video {nro} de {total} - {yt.title} dur: {yt.length}')
                 link = yt.streams.get_highest_resolution()
 
-                downUrl += link.url + ' '
+                downUrl += link.url + '&title=' + quote_plus(self._clearString(self._clearString(yt.title))) + ' '
 
             print('Escribiendo fichero')
 
@@ -89,7 +100,9 @@ class DownTube:
 
 if __name__ == "__main__":
     tube = DownTube()
+    #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M')
     #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60')
-    #tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM')
-    tube._rename('C:\\Downloads\\videoplayback','C:\\Downloads\\','Spot Servicios de Correos en APK','mp4')
+    #tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM', 'E:\TEMP\\')
+    #tube._rename('C:\\Downloads\\videoplayback','C:\\Downloads\\','Spot Servicios de Correos en APK','mp4')
     #tube.download_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60')
+    #print(tube._clearString('Cómo mamá /\>><< | * : leé leí año ayú camagüey'))
