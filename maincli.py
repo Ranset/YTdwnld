@@ -28,12 +28,11 @@ print('Por Ranset Fleites - ransetfleites0@gmail.com')
 
 while True:
     print('')
-    print('Para descargar un video marque 1')
-    print('Para descargar lista marque 2')
-    print('Para obtener links IDM de una lista marque 3')
-    print('exit para salir')
+    print('1 - Descargar un video')
+    print('2 - Descargar lista')
+    print('3 - Obtener links IDM de una lista')
 
-    select1 = input()
+    select1 = input('Elija una opción: ')
 
     dyt = DownTube()
 
