@@ -22,7 +22,7 @@ if proxy != '':
     print(f'Proxy fijado en: {proxy}')
     print('')
 
-print('Bienvenido a YouDL v1.1')
+print('Bienvenido a YouDL v1.2')
 print('Administrador de descarga de Youtube')
 print('Por Ranset Fleites - ransetfleites0@gmail.com')
 

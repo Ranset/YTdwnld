@@ -17,6 +17,13 @@ class DownTube:
 
         print(new)
 
+    def segundos_a_segundos_minutos_y_horas(self, segundos):
+        horas = int(segundos / 60 / 60)
+        segundos -= horas*60*60
+        minutos = int(segundos/60)
+        segundos -= minutos*60
+        return f"{horas:02d}:{minutos:02d}:{segundos:02d}"
+
     def _clearString (self, string:str):
         regex = re.compile('[^0-9a-zA-Z&¡!{()}#$@,.óáéíñúü]+')
         s = regex.sub(' ', string)
@@ -85,7 +92,7 @@ class DownTube:
             for vidUrl in p.video_urls:
                 yt = YouTube(vidUrl)
                 nro += 1
-                print(f'Video {nro} de {total} - {yt.title} dur: {yt.length}')
+                print(f'Video {nro} de {total} - {yt.title} - dur: {self.segundos_a_segundos_minutos_y_horas(yt.length)}')
                 link = yt.streams.get_highest_resolution()
 
                 downUrl += link.url + '&title=' + quote_plus(self._clearString(self._clearString(yt.title))) + ' '
@@ -98,11 +105,14 @@ class DownTube:
 
             print('Completado!')
 
+            os.system('urls.txt')
+
 if __name__ == "__main__":
     tube = DownTube()
-    #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M')
-    #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60')
-    #tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM', 'E:\TEMP\\')
+    #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M') # test
+    #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60') # job
+    tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM', 'E:\TEMP\\')
     #tube._rename('C:\\Downloads\\videoplayback','C:\\Downloads\\','Spot Servicios de Correos en APK','mp4')
     #tube.download_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60')
     #print(tube._clearString('Cómo mamá /\>><< | * : leé leí año ayú camagüey'))
+    #print(tube.segundos_a_segundos_minutos_y_horas(70))
