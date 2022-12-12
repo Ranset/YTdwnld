@@ -2,7 +2,7 @@ import time
 from pySmartDL import SmartDL
 
 url_100mb_file = ['https://proof.ovh.net/files/1Mb.dat']
-obj = SmartDL(url_100mb_file,'C:\Downloads\\',progress_bar=False)
+obj = SmartDL(url_100mb_file,'C:\Downloads\\',progress_bar=False, timeout=15)
 obj.start(blocking=False)
 
 while not obj.isFinished():
