@@ -27,7 +27,7 @@ class DownTube:
         return f"{horas:02d}:{minutos:02d}:{segundos:02d}"
 
     def _clearString (self, string:str):
-        regex = re.compile('[^0-9a-zA-Z&¡!{()}#$@,.óáéíñúü]+')
+        regex = re.compile('[^0-9a-zA-Z&¡!{()}#$@,.óáéíñúüÁÉÍÓÚÜÑ]+')
         s = regex.sub(' ', string)
         return s
 
@@ -74,12 +74,8 @@ class DownTube:
 
                     print(" "*50)
                     print(" "*50)
-                    print(" "*50)
-                    print(" "*50)
-                    print(" "*50)
-                    print(" "*50)
 
-                    print(Cursor.UP(13))
+                    #print(Cursor.UP(13))
                     deinit()
 
                     if obj.isSuccessful:
