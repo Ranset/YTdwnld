@@ -5,7 +5,7 @@ import os
 import re
 from urllib.parse import quote_plus
 from time import sleep
-from colorama import init, deinit, reinit, Fore, Back, Style, Cursor
+from colorama import init, deinit, reinit, Fore, Back, Cursor
 
 class DownTube:
 
@@ -68,14 +68,11 @@ class DownTube:
                         print("Velocidad: %s" % obj.get_speed(human=True))
                         print("Descargado: %s" % obj.get_dl_size(human=True))
                         print("Eta: %s" % obj.get_eta(human=True))
-                        print("Progress: " + Fore.GREEN + f"{round(obj.get_progress()*100)}%")
-                        print(f"Status: {obj.get_status()}"+"\n" + Cursor.UP(6))
+                        print("Progreso: " + Fore.GREEN + f"{round(obj.get_progress()*100)}%")
+                        print(f"Estado: {obj.get_status()}"+"\n" + Cursor.UP(6))
                         sleep(0.2)
 
-                    print(" "*50)
-                    print(" "*50)
-
-                    #print(Cursor.UP(13))
+                    print(Cursor.DOWN(10))
                     deinit()
 
                     if obj.isSuccessful:
@@ -128,6 +125,10 @@ class DownTube:
 
                 downUrl += link.url + '&title=' + quote_plus(self._clearString(self._clearString(yt.title))) + ' '
 
+                f = open('./urls.txt', 'w')
+                f.write(downUrl)
+                f.close()
+
             print('Escribiendo fichero')
 
             f = open('./urls.txt', 'w')
@@ -140,10 +141,10 @@ class DownTube:
 
 if __name__ == "__main__":
     tube = DownTube()
-    #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M') # test
+    tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M') # test
     #tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWpr60_G-pbPzBTWLitr6pd60') # job
-    tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM', 'E:\TEMP\\')
+    #tube.download_video('https://www.youtube.com/watch?v=V1WW1n0tEVM', 'E:\TEMP\\')
     #tube._rename('C:\\Downloads\\videoplayback','C:\\Downloads\\','Spot Servicios de Correos en APK','mp4')
-    #tube.download_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M', 'E:\TEMP\\')
+    # tube.download_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M', 'E:\TEMP\\')
     #print(tube._clearString('Cómo mamá /\>><< | * : leé leí año ayú camagüey'))
     #print(tube.segundos_a_segundos_minutos_y_horas(70))
