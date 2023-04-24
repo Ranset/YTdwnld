@@ -139,6 +139,13 @@ class DownTube:
 
             os.system('urls.txt')
 
+    def open_urls(self, url:str):
+        if url == 'txt':
+            os.system('urls.txt')
+        else:
+            print('Error:')
+            print('-urls txt    Ver urls ya descargadas')
+
 if __name__ == "__main__":
     tube = DownTube()
     tube.get_list('https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M') # test

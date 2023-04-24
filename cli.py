@@ -31,7 +31,7 @@ dyt = DownTube()
 if len(sys.argv) != 3:
     print('Administrador de descarga de Youtube')
     print('Por Ranset Fleites - ransetfleites0@gmail.com')
-    print('Cliente CLI v 1.4.0')
+    print('Cliente CLI v 1.4.5')
     print('')
     print('AYUDA:')
     print('Debe colocar 2 argumentos:')
@@ -40,6 +40,8 @@ if len(sys.argv) != 3:
     print('-dv      Download video (Descargar un video)')
     print('-dl      Download list (Descargar una lista)')
     print('-gl      Get list (Obtener links de descarga de una lista en un txt)')
+    print('')
+    print('-u txt    Ver urls ya descargadas')
     print('')
     print('EJEMPLO:')
     print('cli.exe -gl https://www.youtube.com/playlist?list=PLyDw0WMdjWprGIEt1zyejRS9fZuzhRO-M')
@@ -54,3 +56,5 @@ else:
         dyt.download_list(url, dest)
     elif select1 == '-gl':
         dyt.get_list(url)
+    elif select1 == '-u':
+        dyt.open_urls(url)
